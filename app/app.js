@@ -6,17 +6,29 @@ var budget = angular.module("budget", [])
 })
 .factory('expensesApi', ['$http', function($http) {
     return {
-        add : function(postDate, amount) {
-            return $http.get("/calls/api/?action=addEntry&postDate=" + postDate + "amount=" + amount);
+        add : function(expense) {
+            return $http.get("/budget/api/?action=addEntry&postDate=" + expense.postDate + "&amount=" + expense.amount);
         },
-        get : function(startDate, endDate) {
-            return $http.get("/calls/api/?action=getEntry&startDate=" + startDate + "endDate=" + endDate);
+        get : function(dates) {
+            return $http.get("/budget/api/?action=getEntry&startDate=" + dates.startDate + "&endDate=" + dates.endDate);
         },
         update : function(id, postDate, amount) {
-            return $http.get("/calls/api/?action=updateEntry&id=" + id);
+            return $http.get("/budget/api/?action=updateEntry&id=" + id);
         },
         delete : function(id) {
-            return $http.get("/calls/api/?action=deleteEntry&id=" + id);
+            return $http.get("/budget/api/?action=deleteEntry&id=" + id);
         }
     };
-}]);
+}])
+.factory('weekRangeFactory', function() {
+    return {
+        range : function(date) {
+            var momentObj = {};
+            momentDate = moment(date);
+            momentDate.day()===0 ? momentDate.day(-7) : momentDate.startOf('week').day(1);
+            momentObj['startDate'] = momentDate.format('YYYY-MM-DD');
+            momentObj['endDate']  = moment(momentDate).day(15).format('YYYY-MM-DD');
+            return momentObj;
+        }
+    };
+});
