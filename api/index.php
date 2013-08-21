@@ -24,7 +24,7 @@ switch ($_GET['action']) {
         //---pass in start date and end date (both required)
         //---return *
         if ((isset($_GET['startDate'])) && (isset($_GET['endDate']))) {
-            $results = DB::query('SELECT id, DATE_FORMAT(postDate, "%Y%m%dT%H%i%s") as postDate, amount FROM expenses WHERE postDate >= %%s AND postDate < %%s ORDER BY postDate DESC', $_GET['startDate'], $_GET['endDate']);
+            $results = DB::query('SELECT id, DATE_FORMAT(postDate, "%Y-%m-%d") as postDate, amount FROM expenses WHERE postDate >= %%s AND postDate < %%s ORDER BY postDate DESC', $_GET['startDate'], $_GET['endDate']);
         }
     break;
 
@@ -45,7 +45,7 @@ switch ($_GET['action']) {
         // pass in id (required)
         // return success/fail
         if (isset($_GET['id'])) {
-            $results = DB::delete('clock', "id=%%s", $_GET['id']);
+            $results = DB::delete('expenses', "id=%%s", $_GET['id']);
         }
     break;
 }
