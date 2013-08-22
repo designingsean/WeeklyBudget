@@ -1,9 +1,30 @@
-<input type="text" ng-model="newExpense.postDate">
-<input type="text" ng-model="newExpense.amount">
-<button ng-click="addExpense()">Add</button>
-<table>
-    <tr ng-repeat="entry in expenses">
-        <td>{{entry.postDate}}</td>
-        <td>{{entry.amount}}</td>
-    </tr>
-</table>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2">
+            <h1>{{180-total | currency}}</h1>
+        </div>
+        <div class="col-sm-10">
+            <div class="progress">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="{{((180-total)/180)*100}}" aria-valuemin="0" aria-valuemax="100" style="width: {{((180-total)/180)*100}}%;">
+                        <span class="sr-only">{{((180-total)/180)*100}}% Complete</span>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="amount" ng-model="newExpense.amount">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" ng-click="addExpense()">Add</button>
+                </span>
+            </div>
+            <table class="table table-striped">
+                <tr ng-repeat="entry in expenses">
+                    <td>{{entry.postDate | date:"EEE, MMM d"}}</td>
+                    <td>{{entry.amount | currency}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
