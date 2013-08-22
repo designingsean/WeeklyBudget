@@ -1,12 +1,12 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-2">
-            <h1>{{180-total | currency}}</h1>
+            <h1>{{currentTotal.dollars | currency}}</h1>
         </div>
         <div class="col-sm-10">
             <div class="progress">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="{{((180-total)/180)*100}}" aria-valuemin="0" aria-valuemax="100" style="width: {{((180-total)/180)*100}}%;">
-                        <span class="sr-only">{{((180-total)/180)*100}}% Complete</span>
+                  <div class="progress-bar" role="progressbar" aria-valuenow="{{currentTotal.percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{currentTotal.percent}}%;">
+                        <span class="sr-only">{{currentTotal.percent}}% Complete</span>
                   </div>
             </div>
         </div>

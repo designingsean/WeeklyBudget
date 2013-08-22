@@ -1,4 +1,6 @@
 budget.controller('expenses', function expenses($scope, expensesApi, weekRangeFactory) {
+    $scope.weeklyTotal = 180;
+    $scope.currentTotal = {};
     $scope.newExpense = {
         postDate:moment().format("YYYY-MM-DD")
     };
@@ -12,7 +14,17 @@ budget.controller('expenses', function expenses($scope, expensesApi, weekRangeFa
     function getExpenses() {
         expensesApi.get(weekRange).then(function(response) {
             $scope.expenses = response.data;
+            getTotal();
         });
+    }
+    function getTotal() {
+        var total = 0;
+        angular.forEach($scope.expenses, function(value, key) {
+            if (value.amount !== null)
+                total += Number(value.amount);
+        });
+        $scope.currentTotal.dollars = $scope.weeklyTotal - total;
+        $scope.currentTotal.percent = (($scope.weeklyTotal - total)/$scope.weeklyTotal)*100;
     }
     getExpenses();
 });
