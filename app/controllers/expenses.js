@@ -20,8 +20,8 @@ budget.controller('expenses', function expenses($scope, expensesApi, weekRangeFa
     function getTotal() {
         var total = 0;
         angular.forEach($scope.expenses, function(value, key) {
-            if (value.amount !== null)
-                total += Number(value.amount);
+            total += Number(value.amount);
+            value.postDate = value.postDate + "T06:00-0400";
         });
         $scope.currentTotal.dollars = $scope.weeklyTotal - total;
         $scope.currentTotal.percent = (($scope.weeklyTotal - total)/$scope.weeklyTotal)*100;
