@@ -17,6 +17,9 @@ var budget = angular.module("budget", [])
         },
         delete : function(id) {
             return $http.get("/budget/api/?action=deleteEntry&id=" + id);
+        },
+        monthTotal : function() {
+            return $http.get("/budget/api/?action=monthTotal");
         }
     };
 }])

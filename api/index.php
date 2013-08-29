@@ -48,6 +48,17 @@ switch ($_GET['action']) {
             $results = DB::delete('expenses', "id=%%s", $_GET['id']);
         }
     break;
+
+    case 'monthTotal' :
+        // pull total expenses for the current month
+        // should probably do this in-app using existing
+        // but don't feel like sorting that out right now
+        $today = getdate();
+        $days = date("t");
+        $start = date("Y-n-j", mktime(0, 0, 0, $today[mon], 1, $today[year]));
+        $end = date("Y-n-j", mktime(0, 0, 0, $today[mon], $days, $today[year]));
+        $results = DB::query('SELECT SUM(amount) as total FROM expenses WHERE postDate >= %%s AND postDate < %%s', $start, $end);
+    break;
 }
 
 //return query results as JSON
